@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 pull-right">
+  <table class="table">
+    <tr>
+      
+      <th><a class="btn btn-success btn-block" href="{% url 'homepage' %}">Back to Home</a><br></th>
+      </th>
+    </tr>
+
+  </table>
+
+</div>
+<div class="container">
+
+    <!-- Forms  -->
+   
+
+<!-- Dispalay Data -->
+
+<br><br><br>
+<h3 class="alert alert-warning text-center">Search MEDICINES Records</h3>
+<table class="table my-5" style="color: white;" >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Sno</th>
+        <th scope="col">Medicine</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Price</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in results  %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.Medicine}}</td>
+        <td>{{i.Brand}}</td>
+        <td>{{i.Price}}</td>
+        <td>
+            <!-- Update icon -->
+            <a href="{% url 'update' i.id %}">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <!-- Delete Icon -->
+        <form action="{% url  'delete' i.id %}" method="post" class="d-inline">
+             {% csrf_token %}
+            <button type="submit">
+                <i class="fa-solid fa-trash "></i>
+            </button>
+        </form>
+        </td>
+      </tr>
+      
+      {% endfor %} 
+    </tbody>
+  </table>
+  
+  
+
+</div>
+
+    {% endblock content %}
